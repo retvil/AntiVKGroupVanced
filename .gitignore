@@ -1,0 +1,12 @@
+dist/
+build/
+*.spec
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.exe
+Thumbs.db
+Desktop.ini
+*.log
+build_temp/
