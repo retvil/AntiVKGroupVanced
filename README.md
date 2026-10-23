@@ -1,155 +1,90 @@
-# AntiVKGroupVanced
+# AntiVKGroup Vanced
 
-> Removes Mail.ru and VK software from Windows: Agent, VK Messenger, Cloud Mail.ru, go.mail.ru search hijacks, ICQ, TamTam, VK Play, My.com — and everything they leave behind.
+[![Release](https://img.shields.io/github/v/release/retvil/AntiVKGroupVanced?sort=date)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Platform Windows](https://img.shields.io/badge/platform-Windows-blue)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
-[![GitHub release](https://img.shields.io/github/v/release/retvil/AntiVKGroupVanced)](https://github.com/retvil/AntiVKGroupVanced/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+**Remove Mail.ru and VK software completely and lock your default search against hijacking — 37 detection vectors, 10 UI languages.**
 
-**Language / Язык:** [English](#features) | [Русский](#antivkgroupvanced-1)
+**🇬🇧 English** | [🇷🇺 Русский](README.ru.md)
+
+## What is this?
+
+Mail.ru (VK Group) doesn't just install its apps — Agent, VK Messenger, Cloud Mail.ru and the go.mail.ru search quietly register themselves through dozens of system mechanisms: registry associations, enterprise policies, per-profile browser settings, even search-engine databases inside Chromium profiles. Uninstalling the apps alone doesn't undo all of that.
+
+**AntiVKGroup Vanced** (a companion project to [AntiYandexVanced](https://github.com/retvil/AntiYandexVanced)) finds **all 37 vectors**, removes them with one click, and then **hard-locks your default search** to an engine of your choice via Windows enterprise policies — so nothing can silently take it back.
 
 ## Features
 
-- **Deep scan** of processes, registry, files, browser hijacks, scheduled tasks, services, shortcuts, startup entries, hosts file, firewall rules, Defender exclusions, Store apps and more.
-- **Two editions**:
-  - **AntiVKGroupVanced** — Mail.ru Agent + VK Messenger only (lightweight).
-  - **AntiVKGroupExtended** — everything: Cloud Mail.ru, ICQ, TamTam, VK Play, My.com, Store apps, product directories, local data directories, shell overlays, context menus, hosts, firewall, Defender exclusions.
-- **Search hijack removal** — restores browser settings hijacked to go.mail.ru across Chromium browsers and Firefox.
-- **Default search policy** — enforce your preferred search engine via enterprise policies (survives re-hijacks), or remove Mail.ru policies.
-- **User data consent** — items containing personal data (Cloud Mail.ru files, ICQ/TamTam history, extensions, cookies, antivirus exclusions) are never deleted without explicit confirmation.
-- **Selection dialog** — review every finding before removal; unchecked items can be added to exclusions and will be deselected automatically in future scans.
-- **Backups** — every registry key and file is exported to `%APPDATA%\AntiVKGroupVanced\backup\` before deletion, plus a full operation log.
-- **10 UI languages** — Russian, English, Ukrainian, Kazakh, German, French, Spanish, Polish, Turkish, Chinese.
+- **Hijack scanner** — detects 37 vectors: install paths, uninstall registry entries, `StartMenuInternet` registrations, `Software\Mail.Ru` key trees, `DefaultSearchProvider*` policy hijack, Chromium profile `Preferences`, `Web Data` SQLite keywords, Firefox `search.json.mozlz4`, legacy `SearchScopes`, autostart entries, scheduled tasks, Windows services, shortcuts, ProgramData/Roaming leftovers, hosts entries, firewall rules, URI protocols, browser extensions, mail.ru cookies, open-with associations, Prefetch/WER traces, Defender exclusions, IE Start Page hijack, startup-URL policies (`RestoreOnStartupURLs`), Firefox homepage, IE zone map, RegisteredApplications entries, MUICache traces, %TEMP% installers — plus, in the Extended edition: shell overlays, context menus, leftover directories, Store apps (ICQ, TamTam, VK Play), product directories and local data directories
+- **One-click removal** — every detected vector is removed with a dedicated remover; locked databases are reported, never crash
+- **Hard search policy** — locks the default search to one of 10 engines (Google, Bing, DuckDuckGo, Brave Search, Startpage, Mojeek, Qwant, Ecosia, Yahoo, SearXNG) via HKLM policies for Chrome, Edge, Brave, Vivaldi and Opera, plus `policies.json` for Firefox/Waterfox
+- **Policy cleanup** — strips Mail.ru `DefaultSearchProvider*` values from the registry
+- **User data consent** — items containing personal data (Cloud Mail.ru files, ICQ/TamTam history, extensions, cookies, Defender exclusions) are never deleted without explicit confirmation
+- **Exclusions** — unchecked findings can be saved and are deselected automatically in future scans
+- **Backups** — every registry key and file is exported to `%APPDATA%\AntiVKGroupVanced\backup\` before deletion, plus a full operation log
+- **10 UI languages** — ru, en, uk, kk, de, fr, es, pl, tr, zh; system language auto-detected
+- **Light UI** — ttkbootstrap, vertical layout, pinned status bar and footer
 
-## Quick Start
+## Screenshot
 
-### Download (recommended)
+<details>
+<summary>Main window</summary>
 
-Grab a ready EXE from the [Releases](https://github.com/retvil/AntiVKGroupVanced/releases) page:
+![AntiVKGroupVanced main window](docs/screenshot.png)
 
-- `AntiVKGroupVanced.exe` — Agent + VK Messenger
-- `AntiVKGroupExtended.exe` — all Mail.ru / VK products
+</details>
 
-Run it, click **Search**, review the findings, click **Delete**.
+## Ready builds
 
-### Build from source
+Download from [Releases](https://github.com/retvil/AntiVKGroupVanced/releases):
 
-Requirements: Windows 10+, Python 3.10+.
+- **Windows** — `AntiVKGroupVanced.exe` (portable, single file, ~35 MB) — removes Mail.ru Agent and VK Messenger only
+- **Windows** — `AntiVKGroupExtended.exe` (portable, single file, ~35 MB) — removal of every Mail.ru / VK product: Cloud Mail.ru, ICQ, TamTam, VK Play, My.com, Store apps, product directories, local data directories, system-wide traces
 
-```bat
-build.bat
+Both editions are built from the same codebase — pick the one that matches what you have installed. Run it **as administrator** — HKLM policies and registry cleanup require elevated rights.
+
+## Install from source
+
+Requires Python 3.10+ ([python.org](https://python.org)).
+
+```bash
+git clone https://github.com/retvil/AntiVKGroupVanced.git
+cd AntiVKGroupVanced
+pip install psutil ttkbootstrap
+python main.py
 ```
 
-Both EXE files appear in the `dist\` folder.
+Build your own EXE: run `build.bat` (PyInstaller, output in `dist/`).
 
-## Configuration
+## Usage
 
-No configuration required. Optional:
+1. **Kill Processes** → **Search** → **Delete** — remove the apps themselves.
+2. **Scan Search Hijacks** — lists every way go.mail.ru hooked into your system.
+3. **Remove Hijacks** — close all browsers first, then remove everything found.
+4. Pick an engine → **Apply Policy** — your default search is now locked system-wide.
+5. **Remove Mail.ru Policies** — strips Mail.ru search policy values if you want to undo step 4.
 
-- **Exclusions** — persisted in `%APPDATA%\AntiVKGroupVanced\exclusions.json`.
-- **Operation log** — `%APPDATA%\AntiVKGroupVanced\antivk.log`.
-- **Backups** — `%APPDATA%\AntiVKGroupVanced\backup\<timestamp>\`.
+## FAQ
 
-## Architecture
+- **Why administrator?** Default-search policies live in HKLM and hijack cleanup touches system registry — both need elevation.
+- **"Database locked" in results?** A Chromium browser was running during cleanup. Close all browsers and run the removal again.
+- **How do I undo the search policy?** The **Remove Mail.ru Policies** button strips the policy values; Firefox users can also delete the `distribution\policies.json` file.
+- **Why does the app ask for confirmation?** Some findings contain personal data (Cloud Mail.ru files, messenger history, cookies). They are never deleted without your explicit consent.
+- **Which edition do I need?** Only Agent / VK Messenger installed → `AntiVKGroupVanced.exe`. Anything else from the Mail.ru / VK family (Cloud, ICQ, TamTam, VK Play, My.com) → `AntiVKGroupExtended.exe`.
 
-Single codebase, two entry points:
+## Author & support
 
-| File | Purpose |
-|---|---|
-| `main.py` / `main_extended.py` | Entry points (Vanced / Extended) |
-| `app.py` | Tkinter GUI and workflow orchestration |
-| `profiles.py` | Scan step definitions per edition |
-| `mailru_detect.py` | Detection and removal engine |
-| `products_detect.py` | Product directories, Store apps, local data |
-| `engines.py` | Search engine definitions |
-| `policies.py` | Chromium/Firefox enterprise policies |
-| `backup.py` | Registry/file backups and operation log |
-| `exclusions.py` | Persistent user exclusions |
-| `translations.py` | UI translations (10 languages) |
+**Nod33Eset** — companion project to [AntiYandexVanced](https://github.com/retvil/AntiYandexVanced). Issues and PRs are welcome.
 
-## Development
+If the tool saved you from Mail.ru, you can support development:
 
-```bat
-python -m pytest tests\ -q
-```
+**Crypto:**
 
-## Donations
-
-If this tool saved you time, consider supporting the project:
-
-- **BTC**: `bc1qunld3rsp37qf5gg69aune50y0qqkd0eugg7j97`
-- **TON**: `UQDmvr4SKOxSION3Yky6aOgwAnCDXySPuAbG4EKJa5JUT7tC`
-- **USDT TRC20**: `TBPJSSLu1mUcX54g9UyxUohYGf2fuRvbwd`
-- **USDT ERC20**: `0x25CAED3776Ef5b18E03392bC5b254Bbd78E8180C`
-- **USDT SOL**: `3qgN5z291CEcj2FUi2Zza5DioxKgNw72kC7P52pCcTrG`
+- BTC: `bc1qunld3rsp37qf5gg69aune50y0qqkd0eugg7j97`
+- TON: `UQDmvr4SKOxSION3Yky6aOgwAnCDXySPuAbG4EKJa5JUT7tC`
+- USDT (TRC20): `TBPJSSLu1mUcX54g9UyxUohYGf2fuRvbwd`
+- USDT (ERC20): `0x25CAED3776Ef5b18E03392bC5b254Bbd78E8180C`
+- USDT (SOL): `3qgN5z291CEcj2FUi2Zza5DioxKgNw72kC7P52pCcTrG`
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
-
----
-
-# AntiVKGroupVanced
-
-> Удаляет ПО Mail.ru и VK из Windows: Агент, VK Мессенджер, Облако Mail.ru, поисковые захваты go.mail.ru, ICQ, TamTam, VK Play, My.com — и всё, что они оставляют после себя.
-
-## Возможности
-
-- **Глубокое сканирование** процессов, реестра, файлов, захватов браузеров, планировщика задач, служб, ярлыков, автозагрузки, hosts, правил брандмауэра, исключений Defender, приложений Store и многого другого.
-- **Два издания**:
-  - **AntiVKGroupVanced** — только Агент + VK Мессенджер (лёгкое).
-  - **AntiVKGroupExtended** — всё: Облако Mail.ru, ICQ, TamTam, VK Play, My.com, приложения Store, каталоги продуктов, локальные каталоги данных, оверлеи оболочки, контекстные меню, hosts, брандмауэр, исключения Defender.
-- **Удаление поисковых захватов** — восстанавливает настройки браузеров, захваченные на go.mail.ru, в Chromium-браузерах и Firefox.
-- **Политика поиска по умолчанию** — закрепляет выбранный поисковик через корпоративные политики (переживает повторные захваты) или снимает политики Mail.ru.
-- **Согласие на пользовательские данные** — элементы с личными данными (файлы Облака Mail.ru, история ICQ/TamTam, расширения, куки, исключения антивируса) не удаляются без явного подтверждения.
-- **Диалог выбора** — просмотр всех находок перед удалением; невыбранные элементы можно добавить в исключения — в будущих сканированиях они снимаются автоматически.
-- **Резервные копии** — каждый ключ реестра и файл экспортируется в `%APPDATA%\AntiVKGroupVanced\backup\` перед удалением, плюс полный журнал операций.
-- **10 языков интерфейса** — русский, английский, украинский, казахский, немецкий, французский, испанский, польский, турецкий, китайский.
-
-## Быстрый старт
-
-### Скачивание (рекомендуется)
-
-Готовые EXE на странице [релизов](https://github.com/retvil/AntiVKGroupVanced/releases):
-
-- `AntiVKGroupVanced.exe` — Агент + VK Мессенджер
-- `AntiVKGroupExtended.exe` — все продукты Mail.ru / VK
-
-Запустите, нажмите **Поиск**, просмотрите находки, нажмите **Удалить**.
-
-### Сборка из исходников
-
-Требования: Windows 10+, Python 3.10+.
-
-```bat
-build.bat
-```
-
-Оба EXE появятся в папке `dist\`.
-
-## Настройка
-
-Настройка не требуется. Опционально:
-
-- **Исключения** — хранятся в `%APPDATA%\AntiVKGroupVanced\exclusions.json`.
-- **Журнал операций** — `%APPDATA%\AntiVKGroupVanced\antivk.log`.
-- **Резервные копии** — `%APPDATA%\AntiVKGroupVanced\backup\<метка времени>\`.
-
-## Разработка
-
-```bat
-python -m pytest tests\ -q
-```
-
-## Поддержать проект
-
-Если инструмент сэкономил вам время, поддержите разработку:
-
-- **BTC**: `bc1qunld3rsp37qf5gg69aune50y0qqkd0eugg7j97`
-- **TON**: `UQDmvr4SKOxSION3Yky6aOgwAnCDXySPuAbG4EKJa5JUT7tC`
-- **USDT TRC20**: `TBPJSSLu1mUcX54g9UyxUohYGf2fuRvbwd`
-- **USDT ERC20**: `0x25CAED3776Ef5b18E03392bC5b254Bbd78E8180C`
-- **USDT SOL**: `3qgN5z291CEcj2FUi2Zza5DioxKgNw72kC7P52pCcTrG`
-
-## Лицензия
-
-MIT — см. [LICENSE](LICENSE).
