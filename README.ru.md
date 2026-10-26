@@ -4,7 +4,7 @@
 
 **Полностью удаляет ПО Mail.ru и VK из Windows и блокирует поисковый захват через корпоративные политики — 37 векторов обнаружения, 10 языков интерфейса.**
 
-[🇬🇧 English](README.md) | **🇷🇺 Русский**
+[🇬🇧 English](README.md) | **🇷🇺 Русский** | [🇺🇦 Українська](README.uk.md) | [🇰🇿 Қазақша](README.kk.md) | [🇩🇪 Deutsch](README.de.md) | [🇫🇷 Français](README.fr.md) | [🇪🇸 Español](README.es.md) | [🇵🇱 Polski](README.pl.md) | [🇹🇷 Türkçe](README.tr.md) | [🇨🇳 中文](README.zh.md)
 
 ## Что это?
 

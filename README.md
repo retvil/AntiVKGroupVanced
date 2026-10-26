@@ -4,7 +4,7 @@
 
 **Remove Mail.ru and VK software completely and lock your default search against hijacking — 37 detection vectors, 10 UI languages.**
 
-**🇬🇧 English** | [🇷🇺 Русский](README.ru.md)
+**🇬🇧 English** | [🇷🇺 Русский](README.ru.md) | [🇺🇦 Українська](README.uk.md) | [🇰🇿 Қазақша](README.kk.md) | [🇩🇪 Deutsch](README.de.md) | [🇫🇷 Français](README.fr.md) | [🇪🇸 Español](README.es.md) | [🇵🇱 Polski](README.pl.md) | [🇹🇷 Türkçe](README.tr.md) | [🇨🇳 中文](README.zh.md)
 
 ## What is this?
 
