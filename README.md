@@ -10,7 +10,7 @@
 
 Mail.ru (VK Group) doesn't just install its apps — Agent, VK Messenger, Cloud Mail.ru and the go.mail.ru search quietly register themselves through dozens of system mechanisms: registry associations, enterprise policies, per-profile browser settings, even search-engine databases inside Chromium profiles. Uninstalling the apps alone doesn't undo all of that.
 
-**AntiVKGroup Vanced** (a fork of [TheCawa/AntiVKGroup](https://github.com/TheCawa/AntiVKGroup)) finds **all hijack vectors** (29 in VANCED, 38 in EXTENDED), removes them with one click, and then **hard-locks your default search** to an engine of your choice via Windows enterprise policies — so nothing can silently take it back.
+**AntiVKGroup Vanced** (a fork of [TheCawa/AntiYandex](https://github.com/TheCawa/AntiYandex)) finds **all hijack vectors** (29 in VANCED, 38 in EXTENDED), removes them with one click, and then **hard-locks your default search** to an engine of your choice via Windows enterprise policies — so nothing can silently take it back.
 
 ## Features
 
@@ -73,7 +73,7 @@ Build your own EXE: run `build.bat` (PyInstaller, output in `dist/`).
 
 ## Author & support
 
-**Nod33Eset** — fork of [TheCawa/AntiVKGroup](https://github.com/TheCawa/AntiVKGroup). Issues and PRs are welcome.
+**Nod33Eset** — fork of [TheCawa/AntiYandex](https://github.com/TheCawa/AntiYandex). Issues and PRs are welcome.
 
 If the tool saved you from Mail.ru, you can support development:
 
