@@ -14,7 +14,7 @@ Mail.ru（VK Group）不只是安装它的应用 — Agent、VK Messenger、Clou
 
 ## 功能
 
-- **劫持扫描器** — 检测 37 个向量：安装路径、注册表卸载项、`StartMenuInternet` 注册、独立的 `Software\Mail.Ru` 键树、`DefaultSearchProvider*` 策略劫持、Chromium 配置文件 `Preferences`、`Web Data` SQLite 关键词、Firefox `search.json.mozlz4`、旧式 `SearchScopes`、自启动项、计划任务、Windows 服务、快捷方式、ProgramData/Roaming 残留、hosts 条目、防火墙规则、URI 协议、浏览器扩展、mail.ru Cookie、「打开方式」关联、Prefetch/WER 痕迹、Defender 排除项、IE 起始页劫持、启动 URL 策略（`RestoreOnStartupURLs`）、Firefox 主页、IE 区域映射、RegisteredApplications 条目、MUICache 痕迹、%TEMP% 安装程序 — Extended 版还包括：Shell 图标覆盖、右键菜单、残留目录、Store 应用（ICQ、TamTam、VK Play）、产品目录和本地数据目录
+- **劫持扫描器** — 检测 29 个向量 (VANCED) / 38 个向量 (EXTENDED)：安装路径、注册表卸载项、`StartMenuInternet` 注册、独立的 `Software\Mail.Ru` 键树、`DefaultSearchProvider*` 策略劫持、Chromium 配置文件 `Preferences`、`Web Data` SQLite 关键词、Firefox `search.json.mozlz4`、旧式 `SearchScopes`、自启动项、计划任务、Windows 服务、快捷方式、ProgramData/Roaming 残留、hosts 条目、防火墙规则、URI 协议、浏览器扩展、mail.ru Cookie、「打开方式」关联、Prefetch/WER 痕迹、Defender 排除项、IE 起始页劫持、启动 URL 策略（`RestoreOnStartupURLs`）、Firefox 主页、IE 区域映射、RegisteredApplications 条目、MUICache 痕迹、%TEMP% 安装程序 — Extended 版还包括：Shell 图标覆盖、右键菜单、残留目录、Store 应用（ICQ、TamTam、VK Play）、产品目录和本地数据目录
 - **一键清除** — 每个检测到的向量都由专用清除器删除；被锁定的数据库会被报告，绝不崩溃
 - **严格搜索策略** — 通过 Chrome、Edge、Brave、Vivaldi 和 Opera 的 HKLM 策略，以及 Firefox/Waterfox 的 `policies.json`，将默认搜索锁定到 10 个引擎之一（Google、Bing、DuckDuckGo、Brave Search、Startpage、Mojeek、Qwant、Ecosia、Yahoo、SearXNG）
 - **策略清理** — 从注册表中清除 Mail.ru 的 `DefaultSearchProvider*` 值
@@ -88,3 +88,4 @@ python main.py
 ## 许可证
 
 MIT — 见 [LICENSE](LICENSE)。
+

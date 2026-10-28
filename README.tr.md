@@ -88,3 +88,4 @@ Araç sizi Mail.ru'dan kurtardıysa, geliştirmeyi destekleyebilirsiniz:
 ## Lisans
 
 MIT — bkz. [LICENSE](LICENSE).
+

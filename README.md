@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/retvil/AntiVKGroupVanced?sort=date)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Platform Windows](https://img.shields.io/badge/platform-Windows-blue)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
-**Remove Mail.ru and VK software completely and lock your default search against hijacking — 37 detection vectors, 10 UI languages.**
+**Remove Mail.ru and VK software completely and lock your default search against hijacking — 29 detection vectors (VANCED) / 38 detection vectors (EXTENDED), 10 search engines, 10 UI languages.**
 
 **🇬🇧 English** | [🇷🇺 Русский](README.ru.md) | [🇺🇦 Українська](README.uk.md) | [🇰🇿 Қазақша](README.kk.md) | [🇩🇪 Deutsch](README.de.md) | [🇫🇷 Français](README.fr.md) | [🇪🇸 Español](README.es.md) | [🇵🇱 Polski](README.pl.md) | [🇹🇷 Türkçe](README.tr.md) | [🇨🇳 中文](README.zh.md)
 
@@ -10,11 +10,11 @@
 
 Mail.ru (VK Group) doesn't just install its apps — Agent, VK Messenger, Cloud Mail.ru and the go.mail.ru search quietly register themselves through dozens of system mechanisms: registry associations, enterprise policies, per-profile browser settings, even search-engine databases inside Chromium profiles. Uninstalling the apps alone doesn't undo all of that.
 
-**AntiVKGroup Vanced** (a companion project to [AntiYandexVanced](https://github.com/retvil/AntiYandexVanced)) finds **all 37 vectors**, removes them with one click, and then **hard-locks your default search** to an engine of your choice via Windows enterprise policies — so nothing can silently take it back.
+**AntiVKGroup Vanced** (a fork of [TheCawa/AntiVKGroup](https://github.com/TheCawa/AntiVKGroup)) finds **all hijack vectors** (29 in VANCED, 38 in EXTENDED), removes them with one click, and then **hard-locks your default search** to an engine of your choice via Windows enterprise policies — so nothing can silently take it back.
 
 ## Features
 
-- **Hijack scanner** — detects 37 vectors: install paths, uninstall registry entries, `StartMenuInternet` registrations, `Software\Mail.Ru` key trees, `DefaultSearchProvider*` policy hijack, Chromium profile `Preferences`, `Web Data` SQLite keywords, Firefox `search.json.mozlz4`, legacy `SearchScopes`, autostart entries, scheduled tasks, Windows services, shortcuts, ProgramData/Roaming leftovers, hosts entries, firewall rules, URI protocols, browser extensions, mail.ru cookies, open-with associations, Prefetch/WER traces, Defender exclusions, IE Start Page hijack, startup-URL policies (`RestoreOnStartupURLs`), Firefox homepage, IE zone map, RegisteredApplications entries, MUICache traces, %TEMP% installers — plus, in the Extended edition: shell overlays, context menus, leftover directories, Store apps (ICQ, TamTam, VK Play), product directories and local data directories
+- **Hijack scanner** — detects 29 vectors (VANCED) / 38 vectors (EXTENDED): install paths, uninstall registry entries, `StartMenuInternet` registrations, `Software\Mail.Ru` key trees, `DefaultSearchProvider*` policy hijack, Chromium profile `Preferences`, `Web Data` SQLite keywords, Firefox `search.json.mozlz4`, legacy `SearchScopes`, autostart entries, scheduled tasks, Windows services, shortcuts, ProgramData/Roaming leftovers, hosts entries, firewall rules, URI protocols, browser extensions, mail.ru cookies, open-with associations, Prefetch/WER traces, Defender exclusions, IE Start Page hijack, startup-URL policies (`RestoreOnStartupURLs`), Firefox homepage, IE zone map, RegisteredApplications entries, MUICache traces, %TEMP% installers — plus, in the Extended edition: shell overlays, context menus, leftover directories, Store apps (ICQ, TamTam, VK Play), product directories and local data directories
 - **One-click removal** — every detected vector is removed with a dedicated remover; locked databases are reported, never crash
 - **Hard search policy** — locks the default search to one of 10 engines (Google, Bing, DuckDuckGo, Brave Search, Startpage, Mojeek, Qwant, Ecosia, Yahoo, SearXNG) via HKLM policies for Chrome, Edge, Brave, Vivaldi and Opera, plus `policies.json` for Firefox/Waterfox
 - **Policy cleanup** — strips Mail.ru `DefaultSearchProvider*` values from the registry
@@ -73,7 +73,7 @@ Build your own EXE: run `build.bat` (PyInstaller, output in `dist/`).
 
 ## Author & support
 
-**Nod33Eset** — companion project to [AntiYandexVanced](https://github.com/retvil/AntiYandexVanced). Issues and PRs are welcome.
+**Nod33Eset** — fork of [TheCawa/AntiVKGroup](https://github.com/TheCawa/AntiVKGroup). Issues and PRs are welcome.
 
 If the tool saved you from Mail.ru, you can support development:
 
@@ -88,3 +88,4 @@ If the tool saved you from Mail.ru, you can support development:
 ## License
 
 MIT — see [LICENSE](LICENSE).
+

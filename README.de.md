@@ -14,7 +14,7 @@ Mail.ru (VK Group) installiert nicht nur seine Apps — Agent, VK Messenger, Clo
 
 ## Funktionen
 
-- **Hijack-Scanner** — erkennt 37 Vektoren: Installationspfade, Deinstallations-Registrierungseinträge, `StartMenuInternet`-Registrierungen, `Software\Mail.Ru`-Schlüsselbäume, `DefaultSearchProvider*`-Richtlinien-Hijack, Chromium-Profil-`Preferences`, `Web Data`-SQLite-Schlüsselwörter, Firefox `search.json.mozlz4`, veraltete `SearchScopes`, Autostart-Einträge, Aufgabenplaner-Aufgaben, Windows-Dienste, Verknüpfungen, ProgramData/Roaming-Reste, hosts-Einträge, Firewall-Regeln, URI-Protokolle, Browser-Erweiterungen, mail.ru-Cookies, „Öffnen mit"-Zuordnungen, Prefetch/WER-Spuren, Defender-Ausschlüsse, IE-Startseiten-Hijack, Start-URL-Richtlinien (`RestoreOnStartupURLs`), Firefox-Startseite, IE-Zonenzuordnung, RegisteredApplications-Einträge, MUICache-Spuren, %TEMP%-Installer — plus in der Extended-Edition: Shell-Overlays, Kontextmenüs, übrig gebliebene Verzeichnisse, Store-Apps (ICQ, TamTam, VK Play), Produktverzeichnisse und lokale Datenverzeichnisse
+- **Hijack-Scanner** — erkennt 29 Vektoren (VANCED) / 38 Vektoren (EXTENDED): Installationspfade, Deinstallations-Registrierungseinträge, `StartMenuInternet`-Registrierungen, `Software\Mail.Ru`-Schlüsselbäume, `DefaultSearchProvider*`-Richtlinien-Hijack, Chromium-Profil-`Preferences`, `Web Data`-SQLite-Schlüsselwörter, Firefox `search.json.mozlz4`, veraltete `SearchScopes`, Autostart-Einträge, Aufgabenplaner-Aufgaben, Windows-Dienste, Verknüpfungen, ProgramData/Roaming-Reste, hosts-Einträge, Firewall-Regeln, URI-Protokolle, Browser-Erweiterungen, mail.ru-Cookies, „Öffnen mit"-Zuordnungen, Prefetch/WER-Spuren, Defender-Ausschlüsse, IE-Startseiten-Hijack, Start-URL-Richtlinien (`RestoreOnStartupURLs`), Firefox-Startseite, IE-Zonenzuordnung, RegisteredApplications-Einträge, MUICache-Spuren, %TEMP%-Installer — plus in der Extended-Edition: Shell-Overlays, Kontextmenüs, übrig gebliebene Verzeichnisse, Store-Apps (ICQ, TamTam, VK Play), Produktverzeichnisse und lokale Datenverzeichnisse
 - **Ein-Klick-Entfernung** — jeder gefundene Vektor wird mit einem eigenen Entferner entfernt; gesperrte Datenbanken werden gemeldet, nie Abstürze
 - **Harte Suchrichtlinie** — sperrt die Standardsuche auf eine von 10 Engines (Google, Bing, DuckDuckGo, Brave Search, Startpage, Mojeek, Qwant, Ecosia, Yahoo, SearXNG) über HKLM-Richtlinien für Chrome, Edge, Brave, Vivaldi und Opera, plus `policies.json` für Firefox/Waterfox
 - **Richtlinien-Bereinigung** — entfernt Mail.ru-`DefaultSearchProvider*`-Werte aus der Registrierung
@@ -88,3 +88,4 @@ Wenn das Tool Sie von Mail.ru befreit hat, können Sie die Entwicklung unterstü
 ## Lizenz
 
 MIT — siehe [LICENSE](LICENSE).
+

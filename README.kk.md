@@ -88,3 +88,4 @@ python main.py
 ## Лицензия
 
 MIT — қараңыз [LICENSE](LICENSE).
+

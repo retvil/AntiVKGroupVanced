@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/retvil/AntiVKGroupVanced?sort=date)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Platform Windows](https://img.shields.io/badge/platform-Windows-blue)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
-**Полностью удаляет ПО Mail.ru и VK из Windows и блокирует поисковый захват через корпоративные политики — 37 векторов обнаружения, 10 языков интерфейса.**
+**Полностью удаляет ПО Mail.ru и VK из Windows и блокирует поисковый захват через корпоративные политики — 29 векторов (VANCED) / 38 векторов (EXTENDED), 10 поисковиков, 10 языков интерфейса.**
 
 [🇬🇧 English](README.md) | **🇷🇺 Русский** | [🇺🇦 Українська](README.uk.md) | [🇰🇿 Қазақша](README.kk.md) | [🇩🇪 Deutsch](README.de.md) | [🇫🇷 Français](README.fr.md) | [🇪🇸 Español](README.es.md) | [🇵🇱 Polski](README.pl.md) | [🇹🇷 Türkçe](README.tr.md) | [🇨🇳 中文](README.zh.md)
 
@@ -10,11 +10,11 @@
 
 Mail.ru (VK Group) не просто устанавливает свои приложения — Агент, VK Мессенджер, Облако Mail.ru и поиск go.mail.ru тихо прописывают себя через десятки системных механизмов: ассоциации в реестре, корпоративные политики, настройки профилей браузеров, даже базы поисковых систем внутри профилей Chromium. Простое удаление приложений этого не отменяет.
 
-**AntiVKGroup Vanced** (проект-компаньон [AntiYandexVanced](https://github.com/retvil/AntiYandexVanced)) находит **все 37 векторов**, удаляет их одним кликом, а затем **жёстко закрепляет поиск по умолчанию** на выбранном вами движке через корпоративные политики Windows — чтобы ничего не могло тихо вернуть захват.
+**AntiVKGroup Vanced** (форк [TheCawa/AntiVKGroup](https://github.com/TheCawa/AntiVKGroup)) находит **все векторы захвата** (29 в VANCED, 38 в EXTENDED), удаляет их одним кликом, а затем **жёстко закрепляет поиск по умолчанию** на выбранном вами движке через корпоративные политики Windows — чтобы ничего не могло тихо вернуть захват.
 
 ## Возможности
 
-- **Сканер захватов** — обнаруживает 37 векторов: пути установки, записи деинсталляции в реестре, регистрации `StartMenuInternet`, деревья ключей `Software\Mail.Ru`, перехват политики `DefaultSearchProvider*`, `Preferences` профилей Chromium, ключевые слова SQLite в `Web Data`, `search.json.mozlz4` Firefox, устаревшие `SearchScopes`, записи автозагрузки, задачи планировщика, службы Windows, ярлыки, остатки в ProgramData/Roaming, записи hosts, правила брандмауэра, URI-протоколы, расширения браузеров, куки mail.ru, ассоциации «открыть с помощью», следы Prefetch/WER, исключения Defender, перехват Start Page в IE, политики стартовых URL (`RestoreOnStartupURLs`), домашняя страница Firefox, зоновая карта IE, записи RegisteredApplications, следы MUICache, установщики в %TEMP% — плюс, в издании Extended: оверлеи оболочки, контекстные меню, оставшиеся каталоги, приложения Store (ICQ, TamTam, VK Play), каталоги продуктов и локальные каталоги данных
+- **Сканер захватов** — обнаруживает 29 векторов (VANCED) / 38 векторов (EXTENDED): пути установки, записи деинсталляции в реестре, регистрации `StartMenuInternet`, деревья ключей `Software\Mail.Ru`, перехват политики `DefaultSearchProvider*`, `Preferences` профилей Chromium, ключевые слова SQLite в `Web Data`, `search.json.mozlz4` Firefox, устаревшие `SearchScopes`, записи автозагрузки, задачи планировщика, службы Windows, ярлыки, остатки в ProgramData/Roaming, записи hosts, правила брандмауэра, URI-протоколы, расширения браузеров, куки mail.ru, ассоциации «открыть с помощью», следы Prefetch/WER, исключения Defender, перехват Start Page в IE, политики стартовых URL (`RestoreOnStartupURLs`), домашняя страница Firefox, зоновая карта IE, записи RegisteredApplications, следы MUICache, установщики в %TEMP% — плюс, в издании Extended: оверлеи оболочки, контекстные меню, оставшиеся каталоги, приложения Store (ICQ, TamTam, VK Play), каталоги продуктов и локальные каталоги данных
 - **Удаление одним кликом** — каждый найденный вектор удаляется отдельным обработчиком; заблокированные базы данных фиксируются в отчёте, без падений
 - **Жёсткая политика поиска** — закрепляет поиск по умолчанию на одном из 10 движков (Google, Bing, DuckDuckGo, Brave Search, Startpage, Mojeek, Qwant, Ecosia, Yahoo, SearXNG) через политики HKLM для Chrome, Edge, Brave, Vivaldi и Opera, плюс `policies.json` для Firefox/Waterfox
 - **Очистка политик** — вычищает значения `DefaultSearchProvider*` Mail.ru из реестра
@@ -73,7 +73,7 @@ python main.py
 
 ## Автор и поддержка
 
-**Nod33Eset** — проект-компаньон [AntiYandexVanced](https://github.com/retvil/AntiYandexVanced). Issues и PR приветствуются.
+**Nod33Eset** — форк [TheCawa/AntiVKGroup](https://github.com/TheCawa/AntiVKGroup). Issues и PR приветствуются.
 
 Если инструмент избавил вас от Mail.ru, можно поддержать разработку:
 
@@ -88,3 +88,4 @@ python main.py
 ## Лицензия
 
 MIT — см. [LICENSE](LICENSE).
+

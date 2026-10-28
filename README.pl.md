@@ -14,7 +14,7 @@ Mail.ru (VK Group) nie tylko instaluje swoje aplikacje — Agent, VK Messenger, 
 
 ## Funkcje
 
-- **Skaner przejęć** — wykrywa 37 wektorów: ścieżki instalacji, wpisy dezinstalacji w rejestrze, rejestracje `StartMenuInternet`, drzewa kluczy `Software\Mail.Ru`, przejęcie zasad `DefaultSearchProvider*`, `Preferences` profili Chromium, słowa kluczowe SQLite w `Web Data`, `search.json.mozlz4` Firefoksa, przestarzałe `SearchScopes`, wpisy autostartu, zadania harmonogramu, usługi Windows, skróty, pozostałości w ProgramData/Roaming, wpisy hosts, reguły zapory, protokoły URI, rozszerzenia przeglądarek, ciasteczka mail.ru, asocjacje „Otwórz za pomocą", ślady Prefetch/WER, wyjątki Defendera, przejęcie strony startowej IE, zasady adresów startowych (`RestoreOnStartupURLs`), strona główna Firefoksa, mapa stref IE, wpisy RegisteredApplications, ślady MUICache, instalatory w %TEMP% — plus, w edycji Extended: nakładki powłoki, menu kontekstowe, pozostałe katalogi, aplikacje Store (ICQ, TamTam, VK Play), katalogi produktów i katalogi danych lokalnych
+- **Skaner przejęć** — wykrywa 29 wektorów (VANCED) / 38 wektorów (EXTENDED): ścieżki instalacji, wpisy dezinstalacji w rejestrze, rejestracje `StartMenuInternet`, drzewa kluczy `Software\Mail.Ru`, przejęcie zasad `DefaultSearchProvider*`, `Preferences` profili Chromium, słowa kluczowe SQLite w `Web Data`, `search.json.mozlz4` Firefoksa, przestarzałe `SearchScopes`, wpisy autostartu, zadania harmonogramu, usługi Windows, skróty, pozostałości w ProgramData/Roaming, wpisy hosts, reguły zapory, protokoły URI, rozszerzenia przeglądarek, ciasteczka mail.ru, asocjacje „Otwórz za pomocą", ślady Prefetch/WER, wyjątki Defendera, przejęcie strony startowej IE, zasady adresów startowych (`RestoreOnStartupURLs`), strona główna Firefoksa, mapa stref IE, wpisy RegisteredApplications, ślady MUICache, instalatory w %TEMP% — plus, w edycji Extended: nakładki powłoki, menu kontekstowe, pozostałe katalogi, aplikacje Store (ICQ, TamTam, VK Play), katalogi produktów i katalogi danych lokalnych
 - **Usuwanie jednym kliknięciem** — każdy wykryty wektor jest usuwany dedykowanym usuwaczem; zablokowane bazy danych są zgłaszane, nigdy awarii
 - **Twarda zasada wyszukiwania** — blokuje domyślną wyszukiwarkę na jednym z 10 silników (Google, Bing, DuckDuckGo, Brave Search, Startpage, Mojeek, Qwant, Ecosia, Yahoo, SearXNG) przez zasady HKLM dla Chrome, Edge, Brave, Vivaldi i Opery, plus `policies.json` dla Firefoksa/Waterfox
 - **Czyszczenie zasad** — usuwa wartości `DefaultSearchProvider*` Mail.ru z rejestru
@@ -88,3 +88,4 @@ Jeśli narzędzie uratowało Cię przed Mail.ru, możesz wesprzeć rozwój:
 ## Licencja
 
 MIT — zobacz [LICENSE](LICENSE).
+
