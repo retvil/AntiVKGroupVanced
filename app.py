@@ -24,6 +24,7 @@ import profiles
 import translations
 import mailru_detect
 
+FLAG_LINE = "🇬🇧 English | 🇷🇺 Русский | 🇺🇦 Українська | 🇰🇿 Қазақша | 🇩🇪 Deutsch | 🇫🇷 Français | 🇪🇸 Español | 🇵🇱 Polski | 🇹🇷 Türkçe | 🇨🇳 中文"
 APP_VERSION = "1.0.0"
 APP_AUTHOR = "Nod33Eset"
 GITHUB_URL = "https://github.com/retvil/AntiVKGroupVanced"
@@ -463,6 +464,11 @@ def run(profile_name: str) -> None:
 
     lang_label = ttk.Label(lang_bar, font=("Segoe UI", 11), foreground=TEXT_MUTED)
     lang_label.pack(side="right", padx=(0, 8))
+    lang_flag_label = ttk.Label(
+        root, font=("Segoe UI Emoji", 9), foreground=TEXT_MUTED,
+    )
+    lang_flag_label.pack(fill="x", padx=20, pady=(0, 4))
+    lang_flag_label.configure(text=FLAG_LINE)
 
     # Title centered
     main_label = ttk.Label(root, font=("Segoe UI", 18, "bold"), anchor="center")
@@ -518,6 +524,9 @@ def run(profile_name: str) -> None:
         btn_policy.configure(text=t("policy_btn"))
         btn_unmailru_policy.configure(text=t("policy_unmailru_btn"))
         lang_label.configure(text=t("lang_label"))
+        global lang_flag_label
+        if "lang_flag_label" in globals():
+            lang_flag_label.configure(text=FLAG_LINE)
         update_status(t("status_wait"))
         _render_findings([])  # stale findings are in the previous language
 

@@ -1,5 +1,14 @@
 # AntiVKGroup Vanced
 
+## 🌐 Languages
+
+Interface available in 10 languages:
+
+> 🇬🇧 English | 🇷🇺 Русский | 🇺🇦 Українська | 🇰🇿 Қазақша | 🇩🇪 Deutsch | 🇫🇷 Français | 🇪🇸 Español | 🇵🇱 Polski | 🇹🇷 Türkçe | 🇨🇳 中文
+
+The active language is auto-detected from the system locale; switch it with the dropdown in the top-right corner of the app (or this file's sibling `translations.py`).
+
+
 [![Release](https://img.shields.io/github/v/release/retvil/AntiVKGroupVanced?sort=date)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Platform Windows](https://img.shields.io/badge/platform-Windows-blue)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
 **Elimina por completo el software de Mail.ru y VK de Windows y bloquea tu buscador predeterminado contra secuestros mediante directivas de empresa — 37 vectores de detección, 10 idiomas de interfaz.**
