@@ -1,12 +1,24 @@
-dist/
-build/
-*.spec
+# Python
 __pycache__/
 *.pyc
-venv/
-.venv/
-*.exe
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build artifacts
+build/
+dist/
+
+# Packaging
+*.egg-info/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
 Thumbs.db
-Desktop.ini
-*.log
-build_temp/
+
+# Secrets
+.env
+.env.local
