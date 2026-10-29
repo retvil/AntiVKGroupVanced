@@ -29,7 +29,7 @@ Mail.ru (VK Group) өз қосымшаларын жай ғана орнатпа�
 <details>
 <summary>Негізгі терезе</summary>
 
-![AntiVKGroupVanced негізгі терезесі](docs/screenshot.png)
+![AntiVKGroupVanced негізгі терезесі](screenshot.png)
 
 </details>
 
@@ -87,7 +87,7 @@ python main.py
 
 ## Лицензия
 
-MIT — қараңыз [LICENSE](LICENSE).
+MIT — қараңыз [LICENSE](../LICENSE).
 
 
 

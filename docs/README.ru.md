@@ -29,7 +29,7 @@ Mail.ru (VK Group) не просто устанавливает свои при�
 <details>
 <summary>Главное окно</summary>
 
-![Главное окно AntiVKGroupVanced](docs/screenshot.png)
+![Главное окно AntiVKGroupVanced](screenshot.png)
 
 </details>
 
@@ -87,7 +87,7 @@ python main.py
 
 ## Лицензия
 
-MIT — см. [LICENSE](LICENSE).
+MIT — см. [LICENSE](../LICENSE).
 
 
 

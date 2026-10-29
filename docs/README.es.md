@@ -29,7 +29,7 @@ Mail.ru (VK Group) no solo instala sus aplicaciones — Agent, VK Messenger, Clo
 <details>
 <summary>Ventana principal</summary>
 
-![Ventana principal de AntiVKGroupVanced](docs/screenshot.png)
+![Ventana principal de AntiVKGroupVanced](screenshot.png)
 
 </details>
 
@@ -87,6 +87,6 @@ Si la herramienta te libró de Mail.ru, puedes apoyar el desarrollo:
 
 ## Licencia
 
-MIT — ver [LICENSE](LICENSE).
+MIT — ver [LICENSE](../LICENSE).
 
 

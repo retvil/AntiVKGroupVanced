@@ -29,7 +29,7 @@ Mail.ru (VK Group) uygulamalarını sadece kurmuyor — Agent, VK Messenger, Clo
 <details>
 <summary>Ana pencere</summary>
 
-![AntiVKGroupVanced ana penceresi](docs/screenshot.png)
+![AntiVKGroupVanced ana penceresi](screenshot.png)
 
 </details>
 
@@ -87,6 +87,6 @@ Araç sizi Mail.ru'dan kurtardıysa, geliştirmeyi destekleyebilirsiniz:
 
 ## Lisans
 
-MIT — bkz. [LICENSE](LICENSE).
+MIT — bkz. [LICENSE](../LICENSE).
 
 

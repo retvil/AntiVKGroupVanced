@@ -29,7 +29,7 @@ Mail.ru (VK Group) ne se contente pas d'installer ses applications — Agent, VK
 <details>
 <summary>Fenêtre principale</summary>
 
-![Fenêtre principale d'AntiVKGroupVanced](docs/screenshot.png)
+![Fenêtre principale d'AntiVKGroupVanced](screenshot.png)
 
 </details>
 
@@ -87,6 +87,6 @@ Si l'outil vous a débarrassé de Mail.ru, vous pouvez soutenir le développemen
 
 ## Licence
 
-MIT — voir [LICENSE](LICENSE).
+MIT — voir [LICENSE](../LICENSE).
 
 

@@ -29,7 +29,7 @@ Mail.ru（VK Group）不只是安装它的应用 — Agent、VK Messenger、Clou
 <details>
 <summary>主窗口</summary>
 
-![AntiVKGroupVanced 主窗口](docs/screenshot.png)
+![AntiVKGroupVanced 主窗口](screenshot.png)
 
 </details>
 
@@ -87,6 +87,6 @@ python main.py
 
 ## 许可证
 
-MIT — 见 [LICENSE](LICENSE)。
+MIT — 见 [LICENSE](../LICENSE)。
 
 
