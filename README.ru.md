@@ -73,7 +73,7 @@ python main.py
 
 ## Автор и поддержка
 
-Изначальная идея: [TheCawa/AntiYandex](https://github.com/TheCawa/AntiYandex)
+Изначальная идея: [retvil/AntiYandexVanced](https://github.com/retvil/AntiYandexVanced)
 
 Если инструмент избавил вас от Mail.ru, можно поддержать разработку:
 
@@ -88,5 +88,9 @@ python main.py
 ## Лицензия
 
 MIT — см. [LICENSE](LICENSE).
+
+
+
+
 
 
