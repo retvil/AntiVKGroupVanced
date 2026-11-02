@@ -1,3 +1,8 @@
+## [1.1.0] - 2026-10-28
+
+### Changed
+- Release v1.1.0: consolidated feature set (37 detection vectors), GUI flag-emoji language switch, 10 UI languages, ready builds for both editions.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed
@@ -108,4 +113,5 @@ Windows, a companion project to [AntiYandexVanced](https://github.com/retvil/Ant
   removal dispatch, profile definitions
 
 [Unreleased]: https://github.com/retvil/AntiVKGroupVanced/compare/v1.0.0...HEAD
+
 
