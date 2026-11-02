@@ -1,3 +1,9 @@
+## [1.2.0] - 2026-10-29
+
+### Changed
+- Bumped app version to 1.2.0
+- Consolidated localized README/CHANGELOG into docs/ folder with updated internal links
+
 # Changelog
 
 All notable changes to this project are documented in this file.
@@ -102,3 +108,4 @@ Windows, a companion project to [AntiYandexVanced](https://github.com/retvil/Ant
   removal dispatch, profile definitions
 
 [Unreleased]: https://github.com/retvil/AntiVKGroupVanced/compare/v1.0.0...HEAD
+
