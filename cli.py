@@ -80,8 +80,7 @@ def _cmd_apply(args) -> int:
     for proc in psutil.process_iter(["name"]):
         try:
             name = (proc.info.get("name") or "").lower()
-            if name in {'agent.exe', 'vk_messenger.exe', 'mailru_cloud.exe'}:
-                proc.kill()
+            if name in ({"agent.exe"}): proc.kill()
         except Exception:
             pass
 

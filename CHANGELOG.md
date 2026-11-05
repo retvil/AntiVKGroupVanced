@@ -1,3 +1,15 @@
+## [1.3.0] - 2026-11-05
+
+### Added
+- Auto-update check: background fetch of the latest GitHub release + footer download link
+- Restore from backup: replays the last backup session (registry, scheduled tasks, files)
+- Policy watchdog: daily Windows scheduled task that re-applies the selected engine policy
+- Report export: JSON + HTML report of scan findings
+- CLI mode: --scan-only / --apply / --apply-policy / --restore / --install-watchdog / --remove-watchdog / --report
+
+### Changed
+- Bumped app version to 1.3.0
+
 ## [1.1.0] - 2026-10-28
 
 ### Changed
@@ -113,5 +125,6 @@ Windows, a companion project to [AntiYandexVanced](https://github.com/retvil/Ant
   removal dispatch, profile definitions
 
 [Unreleased]: https://github.com/retvil/AntiVKGroupVanced/compare/v1.0.0...HEAD
+
 
 

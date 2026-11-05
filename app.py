@@ -34,7 +34,7 @@ LANG_ICON_ITEMS: list[tuple[str, str, str]] = [
     ("es", "🇪🇸", "Español"), ("pl", "🇵🇱", "Polski"), ("tr", "🇹🇷", "Türkçe"),
     ("zh", "🇨🇳", "中文"),
 ]
-APP_VERSION = "1.2.0"
+APP_VERSION = "1.3.0"
 APP_AUTHOR = "Nod33Eset"
 GITHUB_URL = "https://github.com/retvil/AntiVKGroupVanced"
 
@@ -685,6 +685,7 @@ def run(profile_name: str) -> None:
     root.after(800, check_update_ui)
 
     root.mainloop()
+
 
 
 
