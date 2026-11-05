@@ -27,7 +27,7 @@ import updater
 import watchdog
 import mailru_detect
 
-APP_VERSION = "1.3.0"
+APP_VERSION = "1.4.0"
 APP_AUTHOR = "Nod33Eset"
 GITHUB_URL = "https://github.com/retvil/AntiVKGroupVanced"
 
@@ -443,7 +443,7 @@ def run(profile_name: str) -> None:
     global root, status_label, findings_box, engine_menu, main_label
     global btn_check, btn_registry, btn_kill, btn_delete
     global btn_hijack, btn_hijack_remove, policy_card, hijack_card, maint_card
-    global btn_policy, btn_unbaidu_policy, lang_label
+    global btn_policy, btn_unbaidu_policy
     global btn_restore, btn_export, chk_watchdog
 
     PROFILE = profiles.validate(profile_name)
@@ -565,9 +565,6 @@ def run(profile_name: str) -> None:
     lang_menu.bind("<<ComboboxSelected>>", on_language_change)
     lang_menu.pack(side="right")
 
-    lang_label = ttk.Label(lang_bar, font=("Segoe UI", 11), foreground=TEXT_MUTED)
-    lang_label.pack(side="right", padx=(0, 8))
-
     # Title centered
     main_label = ttk.Label(root, font=("Segoe UI", 18, "bold"), anchor="center")
     main_label.pack(fill="x", padx=20, pady=(6, 10))
@@ -625,7 +622,6 @@ def run(profile_name: str) -> None:
         btn_restore.configure(text=t("restore_btn"))
         btn_export.configure(text=t("export_btn"))
         chk_watchdog.configure(text=t("watchdog_label"))
-        lang_label.configure(text=t("lang_label"))
         update_status(t("status_wait"))
         _render_findings([])  # stale findings are in the previous language
 

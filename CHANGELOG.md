@@ -1,3 +1,9 @@
+## [1.4.0] - 2026-11-06
+
+### Changed
+- Language switch simplified to a single dropdown (removed the flag-icon strip, flag line, and language label)
+- Bumped app version to 1.4.0
+
 ## [1.3.0] - 2026-11-05
 
 ### Added
