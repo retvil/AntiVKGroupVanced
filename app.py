@@ -1,4 +1,4 @@
-"""Shared GUI for the AntiVKGroup editions.
+"""Shared GUI for the AntiBaidu editions.
 
 Entry points (main.py, main_extended.py) call run() with a product profile
 from profiles.py; the profile selects the scan scope and the product name.
@@ -21,7 +21,10 @@ import exclusions
 import policies
 import products_detect
 import profiles
+import restore
 import translations
+import updater
+import watchdog
 import mailru_detect
 
 FLAG_LINE = ("🇬🇧 English | 🇷🇺 Русский | 🇺🇦 Українська | 🇰🇿 Қазақша | 🇩🇪 Deutsch | 🇫🇷 Français | 🇪🇸 Español | 🇵🇱 Polski | 🇹🇷 Türkçe | 🇨🇳 中文")
@@ -35,7 +38,7 @@ APP_VERSION = "1.2.0"
 APP_AUTHOR = "Nod33Eset"
 GITHUB_URL = "https://github.com/retvil/AntiVKGroupVanced"
 
-MAILRU_PATHS = mailru_detect.MAILRU_PATHS
+BAIDU_PATHS = mailru_detect.BAIDU_PATHS
 
 TEXT_MUTED = "#6b7280"
 STATUS_COLORS = {
@@ -48,13 +51,8 @@ STATUS_COLORS = {
 # Browser processes that lock profile databases during hijack removal
 BROWSER_PROCESSES = {
     "chrome.exe", "msedge.exe", "brave.exe", "vivaldi.exe", "opera.exe",
-    "firefox.exe", "waterfox.exe",
+    "firefox.exe", "waterfox.exe", "browser.exe",
 }
-
-# Messenger processes killed by the Vanced kill button
-_MESSENGER_PROCESS_NAMES = frozenset({
-    "magent.exe", "mailruagent.exe", "vk.exe", "vkmessenger.exe",
-})
 
 # Set by run(); module-level functions below read these.
 PROFILE: str = profiles.EXTENDED
@@ -83,7 +81,7 @@ def run_in_ui(fn):
     """Run a UI-touching callable on the main thread (tkinter is not thread-safe)."""
     root.after(0, fn)
 
-def check_registry_for_mailru():
+def check_registry_for_baidu():
     found = mailru_detect.scan_uninstall_entries()
     if found:
         update_status(t("reg_found"), STATUS_COLORS["ok"])
@@ -92,7 +90,7 @@ def check_registry_for_mailru():
         update_status(t("reg_not_found"), STATUS_COLORS["bad"])
         messagebox.showwarning(t("title"), t("reg_not_found"))
 
-def kill_mailru_processes():
+def kill_baidu_processes():
     killed = False
     extended = PROFILE == profiles.EXTENDED
     for proc in psutil.process_iter(['name', 'exe']):
@@ -101,10 +99,10 @@ def kill_mailru_processes():
             if extended:
                 hit = products_detect.is_product_process(name)
             else:
-                hit = bool(name) and name.lower() in _MESSENGER_PROCESS_NAMES
+                hit = bool(name) and name.lower() in ({"baidubrowser.exe", "baiducloud.exe"})
                 if not hit:
                     exe = (proc.info.get('exe') or "").lower()
-                    hit = "mail.ru" in exe or "\\vk\\" in exe
+                    hit = "baidu browser" in exe
             if hit:
                 proc.kill()
                 killed = True
@@ -117,18 +115,18 @@ def kill_mailru_processes():
         update_status(t("status_no_proc"), STATUS_COLORS["warn"])
         messagebox.showwarning(t("title"), t("not_found_warning"))
 
-def check_mailru_apps():
+def check_baidu_browser():
     def task():
         run_in_ui(lambda: update_status(t("status_searching"), STATUS_COLORS["info"]))
-        hits = [p for p in MAILRU_PATHS if os.path.exists(p)]
+        hits = [p for p in BAIDU_PATHS if os.path.exists(p)]
         if hits:
             run_in_ui(lambda: update_status(t("status_found").format(hits[0]), STATUS_COLORS["ok"]))
         else:
             run_in_ui(lambda: update_status(t("status_not_found"), STATUS_COLORS["bad"]))
     threading.Thread(target=task, daemon=True).start()
 
-def uninstall_mailru_apps():
-    hits = [p for p in MAILRU_PATHS if os.path.exists(p)]
+def uninstall_baidu_browser():
+    hits = [p for p in BAIDU_PATHS if os.path.exists(p)]
     if not hits:
         messagebox.showwarning(t("title"), t("delete_first"))
         return
@@ -158,7 +156,7 @@ def uninstall_mailru_apps():
             return
         if not os.path.exists(target):
             mailru_detect.remove_uninstall_entries()
-            backup.log_action(f"uninstall_mailru_apps: removed {target}")
+            backup.log_action(f"uninstall_baidu_browser: removed {target}")
             def done():
                 update_status(t("delete_success"), STATUS_COLORS["ok"])
                 messagebox.showinfo(t("title"), t("delete_success"))
@@ -179,7 +177,7 @@ def _render_findings(lines):
     findings_box.configure(state=tk.DISABLED)
 
 def scan_hijacks():
-    """Scan the profile's Mail.ru/VK hijack vectors, show findings, offer selection."""
+    """Scan the profile's Baidu hijack vectors, show findings, offer selection."""
     def task():
         run_in_ui(lambda: update_status(t("status_searching"), STATUS_COLORS["info"]))
         findings = mailru_detect.scan_all(PROFILE)
@@ -350,11 +348,93 @@ def apply_search_policy():
         run_in_ui(done)
     threading.Thread(target=task, daemon=True).start()
 
-def remove_mailru_policies():
-    """Strip Mail.ru DefaultSearchProvider policy values from the registry."""
+def restore_backup_ui():
+    """GUI action: replay the last backup session."""
     def task():
-        cleaned = policies.remove_mailru_search_policies()
-        backup.log_action(f"remove_mailru_policies: cleaned={cleaned}")
+        result = restore.restore()
+        def done():
+            if result["reg"] + result["tasks"] + result["files"] > 0:
+                summary = f"reg={result['reg']} tasks={result['tasks']} files={result['files']}"
+                update_status(t("restore_done").format(summary), STATUS_COLORS["ok"])
+                if result["errors"]:
+                    messagebox.showwarning(t("title"), "\n".join(result["errors"]))
+                else:
+                    messagebox.showinfo(t("title"), t("restore_done").format(summary))
+            else:
+                update_status(t("restore_none"), STATUS_COLORS["warn"])
+                messagebox.showinfo(t("title"), t("restore_none"))
+        run_in_ui(done)
+    if not messagebox.askyesno(t("title"), t("restore_confirm")):
+        return
+    threading.Thread(target=task, daemon=True).start()
+
+def export_report_ui():
+    """GUI action: write JSON + HTML report of the last scan."""
+    import report
+    def task():
+        try:
+            json_p, html_p = report.default_report_paths()
+            report.export_json(last_findings, PROFILE, APP_VERSION, json_p)
+            report.export_html(last_findings, PROFILE, APP_VERSION, html_p)
+            ok = True
+            where = str(json_p)
+        except OSError:
+            ok = False
+            where = ""
+        def done():
+            if ok:
+                update_status(t("export_done").format(where), STATUS_COLORS["ok"])
+                messagebox.showinfo(t("title"), t("export_done").format(where))
+            else:
+                update_status(t("export_fail"), STATUS_COLORS["bad"])
+                messagebox.showerror(t("title"), t("export_fail"))
+        run_in_ui(done)
+    threading.Thread(target=task, daemon=True).start()
+
+def toggle_watchdog_ui(checked: bool):
+    """GUI action: install/remove the daily policy watchdog task."""
+    engine_name = engine_menu.get()
+    def task():
+        try:
+            if checked:
+                tid = watchdog.install(engine_name)
+                ok, msg = True, t("watchdog_on").format(tid)
+            else:
+                watchdog.remove()
+                ok, msg = True, t("watchdog_off")
+        except Exception as exc:  # noqa: BLE001 - surfaced in the UI
+            ok, msg = False, t("watchdog_fail").format(str(exc)[:120])
+        def done():
+            if ok:
+                update_status(msg, STATUS_COLORS["ok"])
+            else:
+                update_status(msg, STATUS_COLORS["bad"])
+        run_in_ui(done)
+    threading.Thread(target=task, daemon=True).start()
+
+def check_update_ui():
+    """Background check for a newer GitHub release; expose it in the footer."""
+    def task():
+        latest = updater.fetch_latest_version()
+        if not updater.is_newer(latest, APP_VERSION):
+            return
+        def done():
+            update_label = update_link  # defined in run(); guarded below
+            update_label.configure(
+                text=t("update_label").format(latest), foreground=STATUS_COLORS["ok"]
+            )
+            update_label.bind(
+                "<Button-1>",
+                lambda e: webbrowser.open(GITHUB_URL + "/releases/latest")
+            )
+        run_in_ui(done)
+    threading.Thread(target=task, daemon=True).start()
+
+def remove_baidu_policies():
+    """Strip Baidu DefaultSearchProvider policy values from the registry."""
+    def task():
+        cleaned = policies.remove_baidu_search_policies()
+        backup.log_action(f"remove_baidu_policies: cleaned={cleaned}")
         def done():
             if cleaned:
                 update_status(t("policy_cleaned").format(", ".join(cleaned)), STATUS_COLORS["ok"])
@@ -370,8 +450,9 @@ def run(profile_name: str) -> None:
     global PROFILE, language
     global root, status_label, findings_box, engine_menu, main_label
     global btn_check, btn_registry, btn_kill, btn_delete
-    global btn_hijack, btn_hijack_remove, policy_card, hijack_card
-    global btn_policy, btn_unmailru_policy, lang_label
+    global btn_hijack, btn_hijack_remove, policy_card, hijack_card, maint_card
+    global btn_policy, btn_unbaidu_policy, lang_label
+    global btn_restore, btn_export, chk_watchdog
 
     PROFILE = profiles.validate(profile_name)
     language = translations.detect_system_language()
@@ -402,6 +483,13 @@ def run(profile_name: str) -> None:
     )
     github_link.pack(side="right")
     github_link.bind("<Button-1>", lambda e: webbrowser.open(GITHUB_URL))
+
+    # Auto-update indicator (filled by check_update_ui when a newer release exists)
+    update_link = ttk.Label(
+        footer, font=("Segoe UI", 9), foreground=TEXT_MUTED,
+        text="", cursor="hand2"
+    )
+    update_link.pack(side="right", padx=(0, 4))
 
     footer_label = ttk.Label(
         footer, font=("Segoe UI", 9), foreground=TEXT_MUTED,
@@ -445,8 +533,25 @@ def run(profile_name: str) -> None:
     btn_policy = ttk.Button(policy_card, bootstyle="success", command=apply_search_policy)
     btn_policy.pack(fill="x", pady=(0, 6))
 
-    btn_unmailru_policy = ttk.Button(policy_card, bootstyle="secondary", command=remove_mailru_policies)
-    btn_unmailru_policy.pack(fill="x", pady=(0, 2))
+    btn_unbaidu_policy = ttk.Button(policy_card, bootstyle="secondary", command=remove_baidu_policies)
+    btn_unbaidu_policy.pack(fill="x", pady=(0, 2))
+
+    # Maintenance row: restore / export / watchdog
+    maint_card = ttk.Labelframe(root, text=t("maintenance_section"), padding=(16, 8, 16, 12))
+    maint_card.pack(side="bottom", fill="x", padx=20, pady=(6, 4))
+
+    btn_restore = ttk.Button(maint_card, bootstyle="secondary", command=restore_backup_ui)
+    btn_restore.pack(fill="x", pady=(2, 2))
+
+    btn_export = ttk.Button(maint_card, bootstyle="secondary", command=export_report_ui)
+    btn_export.pack(fill="x", pady=(2, 2))
+
+    watchdog_var = tk.BooleanVar(value=watchdog.is_installed())
+    chk_watchdog = ttk.Checkbutton(
+        maint_card, variable=watchdog_var,
+        command=lambda: toggle_watchdog_ui(watchdog_var.get())
+    )
+    chk_watchdog.pack(fill="x", pady=(2, 2))
 
     def on_language_change(choice):
         global language
@@ -515,16 +620,16 @@ def run(profile_name: str) -> None:
     actions = ttk.Frame(root)
     actions.pack(fill="x", padx=20, pady=(2, 2))
 
-    btn_check = ttk.Button(actions, bootstyle="info", command=check_mailru_apps)
+    btn_check = ttk.Button(actions, bootstyle="info", command=check_baidu_browser)
     btn_check.pack(fill="x", pady=2)
 
-    btn_registry = ttk.Button(actions, bootstyle="secondary", command=check_registry_for_mailru)
+    btn_registry = ttk.Button(actions, bootstyle="secondary", command=check_registry_for_baidu)
     btn_registry.pack(fill="x", pady=2)
 
-    btn_kill = ttk.Button(actions, bootstyle="info", command=kill_mailru_processes)
+    btn_kill = ttk.Button(actions, bootstyle="info", command=kill_baidu_processes)
     btn_kill.pack(fill="x", pady=2)
 
-    btn_delete = ttk.Button(actions, bootstyle="danger", command=uninstall_mailru_apps)
+    btn_delete = ttk.Button(actions, bootstyle="danger", command=uninstall_baidu_browser)
     btn_delete.pack(fill="x", pady=(2, 6))
 
     # Hijack section card: pinned above the policy card, survives window resize
@@ -559,8 +664,15 @@ def run(profile_name: str) -> None:
         policy_card.configure(text=t("policy_section"))
         hijack_card.configure(text=t("hijack_section"))
         btn_policy.configure(text=t("policy_btn"))
-        btn_unmailru_policy.configure(text=t("policy_unmailru_btn"))
+        btn_unbaidu_policy.configure(text=t("policy_unbaidu_btn"))
+        maint_card.configure(text=t("maintenance_section"))
+        btn_restore.configure(text=t("restore_btn"))
+        btn_export.configure(text=t("export_btn"))
+        chk_watchdog.configure(text=t("watchdog_label"))
         lang_label.configure(text=t("lang_label"))
+        global lang_flag_label
+        if "lang_flag_label" in globals():
+            lang_flag_label.configure(text=FLAG_LINE)
         update_status(t("status_wait"))
         _render_findings([])  # stale findings are in the previous language
 
@@ -569,5 +681,10 @@ def run(profile_name: str) -> None:
     if not is_admin():
         update_status(t("warn_no_admin"), STATUS_COLORS["warn"])
 
+    # Fire the background update check after the first paint
+    root.after(800, check_update_ui)
+
     root.mainloop()
+
+
 
