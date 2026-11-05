@@ -38,7 +38,7 @@ APP_VERSION = "1.2.0"
 APP_AUTHOR = "Nod33Eset"
 GITHUB_URL = "https://github.com/retvil/AntiVKGroupVanced"
 
-BAIDU_PATHS = mailru_detect.BAIDU_PATHS
+BRAND_PATHS = mailru_detect.MAILRU_PATHS
 
 TEXT_MUTED = "#6b7280"
 STATUS_COLORS = {
@@ -81,7 +81,7 @@ def run_in_ui(fn):
     """Run a UI-touching callable on the main thread (tkinter is not thread-safe)."""
     root.after(0, fn)
 
-def check_registry_for_baidu():
+def check_registry_for_brand():
     found = mailru_detect.scan_uninstall_entries()
     if found:
         update_status(t("reg_found"), STATUS_COLORS["ok"])
@@ -90,7 +90,7 @@ def check_registry_for_baidu():
         update_status(t("reg_not_found"), STATUS_COLORS["bad"])
         messagebox.showwarning(t("title"), t("reg_not_found"))
 
-def kill_baidu_processes():
+def kill_brand_processes():
     killed = False
     extended = PROFILE == profiles.EXTENDED
     for proc in psutil.process_iter(['name', 'exe']):
@@ -99,10 +99,10 @@ def kill_baidu_processes():
             if extended:
                 hit = products_detect.is_product_process(name)
             else:
-                hit = bool(name) and name.lower() in ({"baidubrowser.exe", "baiducloud.exe"})
+                hit = bool(name) and name.lower() in ({"agent.exe"})
                 if not hit:
                     exe = (proc.info.get('exe') or "").lower()
-                    hit = "baidu browser" in exe
+                    hit = "mail.ru" in exe
             if hit:
                 proc.kill()
                 killed = True
@@ -115,18 +115,18 @@ def kill_baidu_processes():
         update_status(t("status_no_proc"), STATUS_COLORS["warn"])
         messagebox.showwarning(t("title"), t("not_found_warning"))
 
-def check_baidu_browser():
+def check_brand_browser():
     def task():
         run_in_ui(lambda: update_status(t("status_searching"), STATUS_COLORS["info"]))
-        hits = [p for p in BAIDU_PATHS if os.path.exists(p)]
+        hits = [p for p in BRAND_PATHS if os.path.exists(p)]
         if hits:
             run_in_ui(lambda: update_status(t("status_found").format(hits[0]), STATUS_COLORS["ok"]))
         else:
             run_in_ui(lambda: update_status(t("status_not_found"), STATUS_COLORS["bad"]))
     threading.Thread(target=task, daemon=True).start()
 
-def uninstall_baidu_browser():
-    hits = [p for p in BAIDU_PATHS if os.path.exists(p)]
+def uninstall_brand_browser():
+    hits = [p for p in BRAND_PATHS if os.path.exists(p)]
     if not hits:
         messagebox.showwarning(t("title"), t("delete_first"))
         return
@@ -156,7 +156,7 @@ def uninstall_baidu_browser():
             return
         if not os.path.exists(target):
             mailru_detect.remove_uninstall_entries()
-            backup.log_action(f"uninstall_baidu_browser: removed {target}")
+            backup.log_action(f"uninstall_brand_browser: removed {target}")
             def done():
                 update_status(t("delete_success"), STATUS_COLORS["ok"])
                 messagebox.showinfo(t("title"), t("delete_success"))
@@ -430,11 +430,11 @@ def check_update_ui():
         run_in_ui(done)
     threading.Thread(target=task, daemon=True).start()
 
-def remove_baidu_policies():
+def remove_brand_policies():
     """Strip Baidu DefaultSearchProvider policy values from the registry."""
     def task():
         cleaned = policies.remove_baidu_search_policies()
-        backup.log_action(f"remove_baidu_policies: cleaned={cleaned}")
+        backup.log_action(f"remove_brand_policies: cleaned={cleaned}")
         def done():
             if cleaned:
                 update_status(t("policy_cleaned").format(", ".join(cleaned)), STATUS_COLORS["ok"])
@@ -533,7 +533,7 @@ def run(profile_name: str) -> None:
     btn_policy = ttk.Button(policy_card, bootstyle="success", command=apply_search_policy)
     btn_policy.pack(fill="x", pady=(0, 6))
 
-    btn_unbaidu_policy = ttk.Button(policy_card, bootstyle="secondary", command=remove_baidu_policies)
+    btn_unbaidu_policy = ttk.Button(policy_card, bootstyle="secondary", command=remove_brand_policies)
     btn_unbaidu_policy.pack(fill="x", pady=(0, 2))
 
     # Maintenance row: restore / export / watchdog
@@ -620,16 +620,16 @@ def run(profile_name: str) -> None:
     actions = ttk.Frame(root)
     actions.pack(fill="x", padx=20, pady=(2, 2))
 
-    btn_check = ttk.Button(actions, bootstyle="info", command=check_baidu_browser)
+    btn_check = ttk.Button(actions, bootstyle="info", command=check_brand_browser)
     btn_check.pack(fill="x", pady=2)
 
-    btn_registry = ttk.Button(actions, bootstyle="secondary", command=check_registry_for_baidu)
+    btn_registry = ttk.Button(actions, bootstyle="secondary", command=check_registry_for_brand)
     btn_registry.pack(fill="x", pady=2)
 
-    btn_kill = ttk.Button(actions, bootstyle="info", command=kill_baidu_processes)
+    btn_kill = ttk.Button(actions, bootstyle="info", command=kill_brand_processes)
     btn_kill.pack(fill="x", pady=2)
 
-    btn_delete = ttk.Button(actions, bootstyle="danger", command=uninstall_baidu_browser)
+    btn_delete = ttk.Button(actions, bootstyle="danger", command=uninstall_brand_browser)
     btn_delete.pack(fill="x", pady=(2, 6))
 
     # Hijack section card: pinned above the policy card, survives window resize
