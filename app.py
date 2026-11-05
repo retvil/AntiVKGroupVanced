@@ -27,13 +27,6 @@ import updater
 import watchdog
 import mailru_detect
 
-FLAG_LINE = ("🇬🇧 English | 🇷🇺 Русский | 🇺🇦 Українська | 🇰🇿 Қазақша | 🇩🇪 Deutsch | 🇫🇷 Français | 🇪🇸 Español | 🇵🇱 Polski | 🇹🇷 Türkçe | 🇨🇳 中文")
-LANG_ICON_ITEMS: list[tuple[str, str, str]] = [
-    ("en", "🇬🇧", "English"), ("ru", "🇷🇺", "Русский"), ("uk", "🇺🇦", "Українська"),
-    ("kk", "🇰🇿", "Қазақша"), ("de", "🇩🇪", "Deutsch"), ("fr", "🇫🇷", "Français"),
-    ("es", "🇪🇸", "Español"), ("pl", "🇵🇱", "Polski"), ("tr", "🇹🇷", "Türkçe"),
-    ("zh", "🇨🇳", "中文"),
-]
 APP_VERSION = "1.3.0"
 APP_AUTHOR = "Nod33Eset"
 GITHUB_URL = "https://github.com/retvil/AntiVKGroupVanced"
@@ -63,7 +56,6 @@ findings_box: tk.Text
 engine_menu: ttk.Combobox
 
 last_findings: list[str] = []
-
 
 def t(key):
     return translations.t(language, key)
@@ -576,42 +568,6 @@ def run(profile_name: str) -> None:
     lang_label = ttk.Label(lang_bar, font=("Segoe UI", 11), foreground=TEXT_MUTED)
     lang_label.pack(side="right", padx=(0, 8))
 
-    # Language icons strip (PNGs in docs/lang_icons/ when present, else text fallback)
-    lang_icon_strip = ttk.Frame(root)
-    lang_icon_strip.pack(fill="x", padx=20, pady=(0, 4))
-    lang_icons: dict = {}
-    _icon_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs", "lang_icons")
-    try:
-        from PIL import Image, ImageTk
-        for _code, _flag, _lab in LANG_ICON_ITEMS:
-            _p = os.path.join(_icon_dir, f"{_code}.png")
-            if os.path.exists(_p):
-                _img = Image.open(_p).convert("RGBA")
-                _img = _img.resize((_img.width // 2, _img.height // 2), Image.LANCZOS)
-                lang_icons[_code] = ImageTk.PhotoImage(_img)
-    except Exception:
-        lang_icons = {}
-    for _code, _flag, _lab in LANG_ICON_ITEMS:
-        _btn = tk.Label(
-            lang_icon_strip,
-            image=lang_icons.get(_code),
-            compound=tk.LEFT,
-            font=("Segoe UI", 8) if _code not in lang_icons else None,
-            text="" if _code in lang_icons else f"{_flag} {_lab}",
-            cursor="hand2",
-            background="#ffffff",
-            borderwidth=0,
-        )
-        _btn.pack(side="left", padx=(0, 4))
-
-        def _pick(_c=_code, _b=_btn):
-            global language
-            language = _c
-            _b.configure(relief="sunken", background="#dbeafe")
-            update_ui()
-
-        _btn.bind("<Button-1>", lambda e, c=_code, b=_btn: _pick(c, b))
-
     # Title centered
     main_label = ttk.Label(root, font=("Segoe UI", 18, "bold"), anchor="center")
     main_label.pack(fill="x", padx=20, pady=(6, 10))
@@ -670,9 +626,6 @@ def run(profile_name: str) -> None:
         btn_export.configure(text=t("export_btn"))
         chk_watchdog.configure(text=t("watchdog_label"))
         lang_label.configure(text=t("lang_label"))
-        global lang_flag_label
-        if "lang_flag_label" in globals():
-            lang_flag_label.configure(text=FLAG_LINE)
         update_status(t("status_wait"))
         _render_findings([])  # stale findings are in the previous language
 
@@ -685,7 +638,4 @@ def run(profile_name: str) -> None:
     root.after(800, check_update_ui)
 
     root.mainloop()
-
-
-
 
