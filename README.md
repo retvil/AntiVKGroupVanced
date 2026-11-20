@@ -1,4 +1,16 @@
 # AntiVKGroup Vanced
+## :warning: Archived — development moved to the unified product
+
+This repository is **archived**. All Anti\*Vanced products (Baidu, Sogou, 2345,
+UCWeb, Naver, Kakao, QQ, WeChat, Tencent Video, Mail.ru/VK Group) are now
+developed together in a single codebase:
+
+> **[retvil/antivancedcore](https://github.com/retvil/antivancedcore)** —
+> one shared core (`antivancedcore/`) + one thin per-brand wrapper.
+
+This repo keeps its last release binaries available for download, but no
+further changes will be made here. Open issues and contribute to
+[`antivancedcore`](https://github.com/retvil/antivancedcore) instead.
 
 [![v1.4.0](https://img.shields.io/badge/version-1.4.0-brightgreen)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Platform Windows](https://img.shields.io/badge/platform-Windows-blue)](https://github.com/retvil/AntiVKGroupVanced/releases) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 
